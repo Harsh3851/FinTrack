@@ -1,0 +1,43 @@
+# Render Blueprint: deploys the FinTrack API as a free web service.
+# Dashboard -> New -> Blueprint -> pick this repository. You will be asked for MONGODB_URI.
+services:
+  - type: web
+    name: fintrack-api
+    runtime: node
+    plan: free
+    region: singapore
+    branch: master
+    buildCommand: npm ci --include=dev && npm run build -w server
+    startCommand: npm run start -w server
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: '20'
+      - key: NODE_ENV
+        value: production
+      # mongodb-memory-server is a test-only dependency; skip its binary download on Render.
+      - key: MONGOMS_DISABLE_POSTINSTALL
+        value: '1'
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: ACCESS_TOKEN_TTL_SECONDS
+        value: '900'
+      - key: REFRESH_TOKEN_TTL_DAYS
+        value: '7'
+      - key: CORS_ORIGIN
+        value: https://harsh3851.github.io
+      - key: COOKIE_SAMESITE
+        value: none
+      - key: COOKIE_SECURE
+        value: 'true'
+      - key: TRUST_PROXY
+        value: '1'
+      - key: DEMO_ENABLED
+        value: 'true'
+      - key: LOG_LEVEL
+        value: info
