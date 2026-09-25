@@ -1,0 +1,22 @@
+{
+  "name": "@fintrack/shared",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Domain schemas, money/date helpers and demo data shared by the API and the client",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0"
+  }
+}
