@@ -1,0 +1,41 @@
+{
+  "name": "fintrack",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FinTrack - personal finance and budget tracker (MERN + TypeScript)",
+  "license": "MIT",
+  "author": "Harsh Shukla",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm run dev -w server\" \"npm run dev:api -w client\"",
+    "dev:memory": "concurrently -n api,web -c blue,magenta \"npm run dev:memory -w server\" \"npm run dev:api -w client\"",
+    "dev:demo": "npm run dev -w client",
+    "build": "npm run build -w server && npm run build -w client",
+    "build:pages": "node scripts/build-pages.mjs",
+    "seed": "npm run seed -w server",
+    "test": "npm run test -w shared && npm run test -w server && npm run test -w client",
+    "lint": "eslint . --max-warnings=0 && npm run typecheck",
+    "typecheck": "npm run typecheck -w shared && npm run typecheck -w server && npm run typecheck -w client",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.18.0"
+  }
+}
